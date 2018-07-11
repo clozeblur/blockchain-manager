@@ -26,6 +26,10 @@ public class Member extends BaseEntity {
      */
     private String ip;
     /**
+     * 添加端口设置，使同一主机可以启动多个节点
+     */
+    private Integer port;
+    /**
      * 属于哪个联盟链，groupId
      */
     private String groupId;
@@ -36,7 +40,8 @@ public class Member extends BaseEntity {
                 "appId='" + appId + '\'' +
                 ", name='" + name + '\'' +
                 ", ip='" + ip + '\'' +
-                ", groupId=" + groupId +
+                ", port=" + port +
+                ", groupId='" + groupId + '\'' +
                 '}';
     }
 
@@ -62,6 +67,14 @@ public class Member extends BaseEntity {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
     }
 
     public String getGroupId() {

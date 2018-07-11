@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * @Description: 成员用户
  */
 @Entity
-@Table(name = "member")
+@Table(name = "user")
 public class User extends BaseEntity {
 
     private String username;

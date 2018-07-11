@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @Author: yuanjiaxin
  * @Date: 2018/7/5 16:30
- * @Description:
+ * @Description: 成员repository类
  */
 public interface MemberRepository extends JpaRepository<Member, Long> {
 

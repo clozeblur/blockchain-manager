@@ -1,5 +1,7 @@
 package com.fmsh.blockchainmanager.model;
 
+import com.fmsh.blockchainmanager.model.base.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -10,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "member_group")
-public class MemberGroup {
+public class MemberGroup extends BaseEntity {
 
     private String name;
     /**
