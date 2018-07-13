@@ -4,9 +4,12 @@ import com.fmsh.blockchainmanager.bean.MemberData;
 import com.fmsh.blockchainmanager.model.Member;
 import com.fmsh.blockchainmanager.repository.MemberRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @Author: yuanjiaxin
@@ -55,6 +58,20 @@ public class MemberManager {
             //如果该member是合法的，则返回给他联盟内所有的成员列表
             List<Member> members = memberRepository.findByGroupId(groupId);
             memberData.setMembers(members);
+        }
+        return memberData;
+    }
+
+    public MemberData getRandom() {
+        MemberData memberData = new MemberData();
+        List<Member> members = memberRepository.findAll();
+        if (!CollectionUtils.isEmpty(members)) {
+            int i = new Random().nextInt(members.size());
+            memberData.setCode(0);
+            memberData.setMembers(Collections.singletonList(members.get(i)));
+        } else {
+            memberData.setCode(-1);
+            memberData.setMessage("没有合适的投票节点");
         }
         return memberData;
     }

@@ -39,8 +39,13 @@ public class MemberController {
      * @param ip  ip
      * @return ip
      */
-    @GetMapping
+    @GetMapping("/memberData")
     public MemberData member(String name, String appId, String ip) {
         return memberManager.memberData(name, appId, ip);
+    }
+
+    @GetMapping("/getRandom")
+    public MemberData getRandom() {
+        return memberManager.getRandom();
     }
 }
