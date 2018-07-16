@@ -4,6 +4,7 @@ import com.fmsh.blockchainmanager.bean.MemberData;
 import com.fmsh.blockchainmanager.manager.MemberManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -45,6 +46,7 @@ public class MemberController {
     }
 
     @GetMapping("/getRandom")
+    @ResponseBody
     public MemberData getRandom() {
         return memberManager.getRandom();
     }
