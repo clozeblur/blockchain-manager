@@ -13,3 +13,14 @@ logging:
   file: ./logback.log
 server:
   port: 8888
+
+# redis cluster
+core.redis:
+  redisNodes: 127.0.0.1:6379
+  maxTotal: 50
+  minIdle: 5
+  maxIdle: 30
+  maxWaitMillis: 10000
+  testWhileIdle: false
+  timeout: 5000
+  maxRedirections: 6
