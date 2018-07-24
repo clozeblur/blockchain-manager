@@ -1,5 +1,6 @@
 package com.fmsh.blockchainmanager.common;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fmsh.blockchainmanager.model.Leader;
 import com.fmsh.blockchainmanager.model.Member;
 import com.fmsh.blockchainmanager.repository.MemberRepository;
@@ -50,6 +51,6 @@ public class LeaderConfig {
         leader.setTimestamp(timestamp);
 
         LeaderPersist.setLeader(leader);
-        stringRedisTemplate.convertAndSend("manager", leader);
+        stringRedisTemplate.convertAndSend("manager", JSONObject.toJSONString(leader));
     }
 }

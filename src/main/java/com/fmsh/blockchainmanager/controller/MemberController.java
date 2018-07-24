@@ -1,13 +1,17 @@
 package com.fmsh.blockchainmanager.controller;
 
+import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import com.fmsh.blockchainmanager.bean.MemberData;
+import com.fmsh.blockchainmanager.common.LeaderPersist;
 import com.fmsh.blockchainmanager.manager.MemberManager;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.fmsh.blockchainmanager.model.Leader;
+import com.fmsh.blockchainmanager.model.Member;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: yuanjiaxin
@@ -20,6 +24,9 @@ public class MemberController {
 
     @Resource
     private MemberManager memberManager;
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     ///**
     // * 校验某服务是否合法，结果将决定对方能不能启动
@@ -49,5 +56,30 @@ public class MemberController {
     @ResponseBody
     public MemberData getRandom() {
         return memberManager.getRandom();
+    }
+
+    @GetMapping("/getLeader")
+    @ResponseBody
+    public Leader getLeader() {
+        return LeaderPersist.getLeader();
+    }
+
+    @GetMapping("/testRedisSet")
+    @ResponseBody
+    public String testSet() {
+        Leader leader = new Leader();
+        leader.setMember(getRandom().getMembers().get(0));
+        leader.setTimestamp(System.currentTimeMillis());
+        String out = new String(new FastJsonRedisSerializer<>(Leader.class).serialize(leader));
+        System.out.println(out);
+        stringRedisTemplate.opsForValue().set("test-key", "test-value", 5, TimeUnit.MINUTES);
+        stringRedisTemplate.opsForValue().set("test-leader", new String(new FastJsonRedisSerializer<>(Leader.class).serialize(leader)), 5, TimeUnit.MINUTES);
+        return "ok";
+    }
+
+    @GetMapping("/testRedisGet")
+    @ResponseBody
+    public String testGet() {
+        return stringRedisTemplate.opsForValue().get("test-key") + " \n" + (new FastJsonRedisSerializer<>(Leader.class).deserialize(stringRedisTemplate.opsForValue().get("test-leader").getBytes()));
     }
 }
