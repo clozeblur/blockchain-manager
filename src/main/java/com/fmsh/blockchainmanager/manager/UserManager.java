@@ -62,6 +62,8 @@ public class UserManager {
         User user = new User();
         user.setUsername(username);
         user.setAddress(address);
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
         userRepository.save(user);
         base.setCode(Constants.SUCCESS);
         return base;
