@@ -39,7 +39,7 @@ public class MemberManager {
 
     public MemberData memberData(String name, String appId, String ip) {
         MemberData memberData = new MemberData();
-        Member member = memberRepository.findFirstByAppId(appId);
+        Member member = memberRepository.findFirstByAppIdAndNameAndIp(appId, name, ip);
         //客户不存在
         if (member == null) {
             memberData.setCode(-1);
@@ -66,7 +66,8 @@ public class MemberManager {
         MemberData memberData = new MemberData();
         List<Member> members = memberRepository.findAll();
         if (!CollectionUtils.isEmpty(members)) {
-            int i = new Random().nextInt(members.size());
+            Random r = new Random(System.currentTimeMillis());
+            int i = r.nextInt(members.size());
             memberData.setCode(0);
             memberData.setMembers(Collections.singletonList(members.get(i)));
         } else {

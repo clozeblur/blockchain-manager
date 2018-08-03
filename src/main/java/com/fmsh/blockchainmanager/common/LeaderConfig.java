@@ -41,8 +41,9 @@ public class LeaderConfig {
     private void selectLeader() {
         List<Member> members = memberRepository.findAll();
         if (CollectionUtils.isEmpty(members)) return;
-
-        int i = new Random().nextInt(members.size());
+        Random r = new Random();
+        r.setSeed(System.currentTimeMillis());
+        int i = r.nextInt(members.size());
         Member leaderMember = members.get(i);
 
         long timestamp = System.currentTimeMillis();

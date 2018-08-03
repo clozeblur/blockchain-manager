@@ -49,4 +49,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      * @return Member
      */
     Member findFirstByName(String name);
+
+    Member findFirstByAppIdAndNameAndIp(String appId, String name, String ip);
 }
