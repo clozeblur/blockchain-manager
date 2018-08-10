@@ -2,6 +2,7 @@ package com.fmsh.blockchainmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @Author: yuanjiaxin
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description:
  */
 @SpringBootApplication
+@EnableScheduling
 public class BlockchainManagerApplication {
 
     public static void main(String[] args) {

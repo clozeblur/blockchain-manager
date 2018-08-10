@@ -33,7 +33,7 @@ public class LeaderConfig {
         selectLeader();
     }
 
-    @Scheduled(cron = "0 0 0/1 * * ?")
+    @Scheduled(cron = "0/10 * * * * ?")
     public void task() {
         selectLeader();
     }
@@ -41,12 +41,19 @@ public class LeaderConfig {
     private void selectLeader() {
         List<Member> members = memberRepository.findAll();
         if (CollectionUtils.isEmpty(members)) return;
-        Random r = new Random();
-        r.setSeed(System.currentTimeMillis());
-        int i = r.nextInt(members.size());
-        Member leaderMember = members.get(i);
-
+//        Random r = new Random();
+//        r.setSeed(System.currentTimeMillis());
+//        int i = r.nextInt(members.size());
+//        Member leaderMember = members.get(i);
+//
         long timestamp = System.currentTimeMillis();
+        Member leaderMember = new Member();
+        leaderMember.setAppId("node1");
+        leaderMember.setGroupId("1");
+        leaderMember.setName("node1");
+        leaderMember.setIp("192.168.95.133");
+        leaderMember.setPort(14000);
+
         Leader leader = new Leader();
         leader.setMember(leaderMember);
         leader.setTimestamp(timestamp);
